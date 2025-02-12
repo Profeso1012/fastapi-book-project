@@ -1,0 +1,25 @@
+name: CI Pipeline  # Name of the workflow
+
+on:                # When should this workflow run?
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:            # Job name
+    runs-on: ubuntu-latest  # OS for runner
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Clones the repo
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Tests
+        run: pytest
