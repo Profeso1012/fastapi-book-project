@@ -1,0 +1,29 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # ✅ Runs on merge to main branch
+
+jobs:
+  deploy:
+    name: Deploy Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Deploy to Server
+        run: |
+          echo "Deployment successful!"
